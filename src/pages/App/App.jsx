@@ -3,6 +3,9 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
+import Home from '../Home/Home';
+import Profile from '../Profile/Profile';
+import NewPost from '../NewPost/NewPost';
 import userService from '../../utils/userService'
 
 
@@ -34,8 +37,19 @@ function App() {
             <> 
              <Switch>
                 <Route exact path="/">
-                    Home PAGE COMPONENT WOULD GO HEREE
+                    <Home />
+        
                 </Route>
+                <Route exact path="/profile">
+                    <Profile />
+        
+                </Route>
+                <Route exact path="/newpost">
+                    <NewPost />
+        
+                </Route>
+                
+            
             </Switch>
             </>
             :
