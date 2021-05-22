@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import userService from '../../utils/userService'
+import { Modal } from 'semantic-ui-react';
+import NewPost from '../NewPost/NewPost';
 import './Nav.css'
 
 export default function Nav () {
     const [user, setUser] = useState(null)
+    const [active, setActive] = useState(false)
     const history = useHistory();
 
+    function handleModalOpen(){
+        setActive(true)
+    };
+
+    function handleModalClose(){
+        setActive(false)
+    };
+
+
+    
+    
+    
     function handleLogout(){
         userService.logout();
         setUser({user: null})
@@ -28,11 +43,6 @@ export default function Nav () {
         history.push('/profile')
     }
 
-    function goToNewPost(){
-        history.push('/newpost')
-    }
-
-
     useEffect(() => {
         setUser(userService.getUser())
     }, [])
@@ -49,7 +59,20 @@ export default function Nav () {
                 <div onClick={handleLogout}>Logout</div>
                 <div onClick={goToHome}>Home</div>
                 <div onClick={goToProfile}>Profile</div>
-                <div onClick={goToNewPost}>New Post</div>
+                <div onClick={handleModalOpen}>New Post</div>
+                <Modal
+                        // dimmer='blurring'
+                        onClose={handleModalClose}
+                        onOpen={handleModalOpen}
+                        open={active}
+                        >
+                        <Modal.Header>New Post</Modal.Header>
+                        <Modal.Content>
+                            <NewPost />
+                        </Modal.Content>
+                    </Modal>
+
+
             </>
         }</div>
     )

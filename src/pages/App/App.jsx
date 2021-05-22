@@ -44,10 +44,6 @@ function App() {
                     <Profile />
         
                 </Route>
-                <Route exact path="/newpost">
-                    <NewPost />
-        
-                </Route>
                 
             
             </Switch>
