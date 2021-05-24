@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as postService from '../../utils/postService';
 import { Button, Form, Grid, Header, Image,  Segment } from 'semantic-ui-react'
-export default function NewPost(props){
+export default function NewPost({ handleModalClose }){
   const [selectedFile, setSelectedFile] = useState('')
   const [state, setState] = useState({
     caption: ''
@@ -37,6 +37,7 @@ export default function NewPost(props){
     formData.append('caption', state.caption)
     // Have to submit the form now! We need a function!
     handleAddPost(formData)
+    handleModalClose()
   }
   return (
     <Grid textAlign='center' style={{ height: '25vh' }} verticalAlign='middle'>

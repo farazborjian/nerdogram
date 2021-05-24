@@ -68,7 +68,7 @@ export default function Nav () {
                         >
                         <Modal.Header>New Post</Modal.Header>
                         <Modal.Content>
-                            <NewPost />
+                            <NewPost handleModalClose={handleModalClose} />
                         </Modal.Content>
                     </Modal>
 

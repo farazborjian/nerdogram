@@ -1,0 +1,30 @@
+#profile-container {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-direction: column;
+}
+
+#profile-inner-container {
+	width: 70%;
+	height: 400px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.445);
+	margin-top: 50px;
+	display: flex;
+}
+
+#user-image {
+	width: 40%;
+	height: 400px;
+	object-fit: cover;
+}
+
+#user-info {
+	width: 60%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
