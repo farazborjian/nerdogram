@@ -61,7 +61,7 @@ export default function Nav () {
                 <div onClick={goToProfile}>Profile</div>
                 <div onClick={handleModalOpen}>New Post</div>
                 <Modal
-                        // dimmer='blurring'
+                        dimmer='blurring'
                         onClose={handleModalClose}
                         onOpen={handleModalOpen}
                         open={active}

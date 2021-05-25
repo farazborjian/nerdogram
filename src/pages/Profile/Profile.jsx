@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import Nav from '../../components/Nav/Nav';
-import { Image } from 'semantic-ui-react';
+import EditForm from '../../components/EditForm/EditForm';
+import { Icon, Modal } from 'semantic-ui-react';
 import PostGrid from '../../components/PostGrid/PostGrid';
 import * as postService from '../../utils/postService';
 import * as likesApi from '../../utils/likesService';
@@ -10,6 +11,7 @@ import * as likesApi from '../../utils/likesService';
 export default function Profile({user}){
     
     const [posts, setPosts] = useState([]);
+    const [active, setActive] = useState(false)
 
     async function addLike(postId){
         try {
@@ -40,11 +42,28 @@ export default function Profile({user}){
     async function getPosts(){
         try {
             const data = await postService.getAll();
-            setPosts([...data.posts])
+            const userPost = [];
+            data.posts.forEach(post=>{
+                if (user._id === post.user._id) {
+                    userPost.push(post)
+                }             
+            })
+            setPosts([...userPost])
         } catch(err){
             console.log(err, ' this is the error')
         }
     }
+
+    
+
+    function handleModalOpen(){
+        setActive(true)
+    };
+
+    function handleModalClose(){
+        setActive(false)
+    };
+
     useEffect(() => {
         getPosts()
     }, [])
@@ -53,6 +72,9 @@ export default function Profile({user}){
         <Nav />
 <div id='profile-container'>
     <div id='profile-inner-container'>
+        <div id='icon-container'>
+            <Icon onClick={handleModalOpen} name='edit' size='large' color='light blue'></Icon>
+        </div>
         
         <img id='user-image' src={user.photoUrl} alt="photoUrl"/>
         <div id ='user-info'>
@@ -63,7 +85,17 @@ export default function Profile({user}){
     </div>
     
         <PostGrid posts={posts} user={user} removeLike={removeLike} addLike={addLike} deletePost={deletePost} isProfile={false} />
-    
+<Modal
+                    dimmer='blurring'
+                    onClose={handleModalClose}
+                    onOpen={handleModalOpen}
+                    open={active}
+                    >
+                    <Modal.Header>Update Profile</Modal.Header>
+                    <Modal.Content>
+                        <EditForm  user={user} />
+                    </Modal.Content>
+                </Modal>
     
 
 </div>

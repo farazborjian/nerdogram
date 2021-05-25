@@ -13,6 +13,7 @@
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.445);
 	margin-top: 50px;
 	display: flex;
+	position: relative;
 }
 
 #user-image {
@@ -27,4 +28,10 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+
+#icon-container {
+	position: absolute;
+	top: 0;
+	right: 0;
 }

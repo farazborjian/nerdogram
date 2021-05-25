@@ -46,10 +46,24 @@ function login(creds) {
 		.then(({ token }) => tokenService.setToken(token));
 }
 
+function updateUser(data) {
+	return fetch(BASE_URL + data.id, {
+		method: 'PUT',
+		headers: new Headers({
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + tokenService.getToken(),
+		}),
+		body: JSON.stringify(data),
+	}).then((res) => {
+		if (res.ok) return res.json();
+		throw new Error('unable update the user');
+	});
+}
 
 export default {
 	signup,
 	logout,
 	login,
 	getUser,
+	updateUser,
 };
