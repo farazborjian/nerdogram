@@ -53,10 +53,11 @@ function update(req, res) {
 			user.email = req.body.email;
 			user.password = req.body.password;
 			user.bio = req.body.bio;
-			user.photoUrl = data.location;
+			user.photoUrl = data.Location;
 
 			await user.save();
-			res.json({ user: user });
+			const token = createJWT(user);
+			res.json({ token });
 		} catch (err) {
 			// Probably a duplicate email
 			res.status(400).json(err);

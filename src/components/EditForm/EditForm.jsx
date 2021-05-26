@@ -4,7 +4,7 @@ import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react'
 import userService from '../../utils/userService';
 
 
-export default function EditForm({user}){
+export default function EditForm({user, handleModalClose, handleSignUpOrLogin}){
     console.log(user)
   const [invalidForm, setValidForm] = useState(false)
   const [error, setError ] = useState('')
@@ -37,12 +37,14 @@ export default function EditForm({user}){
     
     try {
       
-      await userService.updateUser(formData);
+      await userService.updateUser(formData, user._id);
+      handleSignUpOrLogin()
       
     } catch(err){
       console.log(err.message)
       setError(err.message)
     }
+    handleModalClose()
   }
   function handleFileInput(e){
     setSelectedFile(e.target.files[0])
@@ -50,7 +52,7 @@ export default function EditForm({user}){
     return (
         <>
        
-        <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+        <Grid textAlign='center'  verticalAlign='middle'>
           <Grid.Column style={{ maxWidth: 450 }}>
              
                    
@@ -101,8 +103,9 @@ export default function EditForm({user}){
                       type="submit"
                       className="btn"
                       disabled={invalidForm}
+                      color='red'
                     >
-                    Signup
+                    Update Profile
                   </Button>
                   </Segment>
                   {error ? <ErrorMessage error={error} /> : null}

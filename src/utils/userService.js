@@ -1,7 +1,5 @@
 import tokenService from './tokenService';
-
 const BASE_URL = '/api/users/';
-
 // NOTE THIS IS configured to send of a multi/part form request
 // aka photo
 function signup(user) {
@@ -23,15 +21,12 @@ function signup(user) {
 	// The above could have been written as
 	//.then((token) => token.token);
 }
-
 function getUser() {
 	return tokenService.getUserFromToken();
 }
-
 function logout() {
 	tokenService.removeToken();
 }
-
 function login(creds) {
 	return fetch(BASE_URL + 'login', {
 		method: 'POST',
@@ -45,21 +40,20 @@ function login(creds) {
 		})
 		.then(({ token }) => tokenService.setToken(token));
 }
-
-function updateUser(data) {
-	return fetch(BASE_URL + data.id, {
+function updateUser(data, id) {
+	return fetch(BASE_URL + id, {
 		method: 'PUT',
 		headers: new Headers({
-			'Content-Type': 'application/json',
 			Authorization: 'Bearer ' + tokenService.getToken(),
 		}),
-		body: JSON.stringify(data),
-	}).then((res) => {
-		if (res.ok) return res.json();
-		throw new Error('unable update the user');
-	});
+		body: data,
+	})
+		.then((res) => {
+			if (res.ok) return res.json();
+			throw new Error('Unable to update user!');
+		})
+		.then(({ token }) => tokenService.setToken(token));
 }
-
 export default {
 	signup,
 	logout,

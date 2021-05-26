@@ -18,10 +18,6 @@ function App() {
     setUser(userService.getUser()) // getting the user from localstorage decoding the jwt
   }
 
-  function handleLogout(){
-    userService.logout();
-    setUser({user: null})
-  }
 
   return (
     <div className="App">
@@ -40,7 +36,7 @@ function App() {
         
                 </Route>
                 <Route exact path="/profile">
-                    <Profile user={user}/>
+                    <Profile user={user} handleSignUpOrLogin={handleSignUpOrLogin} />
         
                 </Route>
                 

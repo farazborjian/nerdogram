@@ -8,7 +8,7 @@ import * as postService from '../../utils/postService';
 import * as likesApi from '../../utils/likesService';
 
 
-export default function Profile({user}){
+export default function Profile({user, handleSignUpOrLogin}){
     
     const [posts, setPosts] = useState([]);
     const [active, setActive] = useState(false)
@@ -85,20 +85,21 @@ export default function Profile({user}){
     </div>
     
         <PostGrid posts={posts} user={user} removeLike={removeLike} addLike={addLike} deletePost={deletePost} isProfile={false} />
-<Modal
+                <Modal
                     dimmer='blurring'
                     onClose={handleModalClose}
                     onOpen={handleModalOpen}
                     open={active}
+                    size='tiny'
                     >
                     <Modal.Header>Update Profile</Modal.Header>
                     <Modal.Content>
-                        <EditForm  user={user} />
+                        <EditForm  user={user} handleModalClose={handleModalClose} handleSignUpOrLogin={handleSignUpOrLogin} />
                     </Modal.Content>
                 </Modal>
     
 
-</div>
+            </div>
         </>
     )
 }
